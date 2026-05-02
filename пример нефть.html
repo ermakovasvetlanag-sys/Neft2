@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>OilFlow / Brent Live — аналитика нефти</title>
+  <!-- Font Awesome 6 (бесплатный CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf3 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1.5rem;
+      color: #0a1c2a;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* карточки и общие стили */
+    .card {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      padding: 1.8rem 2rem;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #11212e;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+
+    .price-large {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0b2b3b;
+    }
+
+    .change-negative {
+      color: #d32f2f;
+      background: #ffe9e9;
+      padding: 0.2rem 0.9rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    .signal-box {
+      background: #0f212f;
+      color: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.6rem;
+    }
+
+    .signal-box i {
+      color: #4caf50;
+      font-size: 1.8rem;
+    }
+
+    .level {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+      padding: 0.6rem 0;
+    }
+
+    .risk-tag {
+      background: #cf2e2e20;
+      border-left: 5px solid #cf2e2e;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+
+    .news-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #3f5e7c;
+      margin-top: 2rem;
+      border-top: 1px solid #cad4de;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      .price-large {
+        font-size: 2.4rem;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-weight: 600;
+      color: #0b5e7e;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- Хедер с логотипом и датой -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <i class="fas fa-oil-can" style="font-size: 2rem; color: #1f6392;"></i>
+      <span style="font-weight: 800; font-size: 1.6rem; letter-spacing: -0.5px;">OilFlow</span>
+      <span class="badge"><i class="fas fa-chart-line"></i> Brent Live</span>
+    </div>
+    <div style="display: flex; gap: 1rem; margin-top: 8px;">
+      <span><i class="far fa-calendar-alt"></i> 2 мая 2026</span>
+      <span><i class="fas fa-globe-americas"></i> геополитика / энерго</span>
+    </div>
+  </div>
+
+  <!-- Основной блок: цена, прогноз -->
+  <div class="card" style="margin-bottom: 1.2rem;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+          <span style="font-weight: 600; font-size: 1rem;">BRENT (фьючерс) / USD</span>
+          <span class="change-negative"><i class="fas fa-arrow-down"></i> 1,21%</span>
+        </div>
+        <div class="price-large">109,06 <span style="font-size: 1.2rem; font-weight: 500;">USD</span></div>
+        <div style="margin-top: 6px; color: #2c5a74;"><i class="fas fa-waveform"></i> 3-15 мин таймфрейм | консолидация 108.80–109.40</div>
+      </div>
+      <div style="background: #eef2f7; padding: 0.4rem 1.3rem; border-radius: 60px;">
+        <i class="fas fa-chart-simple"></i> стоп-уровень: 110.50
+      </div>
+    </div>
+  </div>
+
+  <!-- Сетка: прогноз (шорт) + уровни -->
+  <div class="grid-2">
+    <!-- колонка прогноза -->
+    <div class="card">
+      <h3 style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;"><i class="fas fa-bullseye" style="color:#d9534f;"></i> Торговый сценарий</h3>
+      <div class="signal-box" style="background: #102b37; margin-bottom: 1.2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span><i class="fas fa-arrow-down-long"></i> <strong>短期 шорт (коррекция)</strong></span>
+          <span style="background: #d9534f; padding: 2px 12px; border-radius: 30px; font-size: 0.8rem;">приоритет</span>
+        </div>
+        <p style="margin-top: 12px; opacity: 0.9;">цена удерживается ниже 109.80 → ожидаем движение в зону <strong>107.50 – 108.00</strong></p>
+        <div style="margin-top: 10px; font-size: 0.85rem;"><i class="far fa-clock"></i> горизонт: 1–4 часа</div>
+      </div>
+      <div class="risk-tag">
+        <i class="fas fa-skull-crosswalk"></i> <strong>ключевая угроза для шорта:</strong> новости об ударах по Ирану («strike / attack»).<br>
+        <span style="font-size: 0.85rem;">если выше 110.50 — сценарий отменяется → разворот в лонг до 115+</span>
+      </div>
+    </div>
+
+    <!-- колонка уровней сопротивления/поддержки -->
+    <div class="card">
+      <h3 style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;"><i class="fas fa-chart-line"></i> ключевые уровни <span style="font-weight: normal; font-size: 0.8rem;">(5-15 мин)</span></h3>
+      <div style="margin-top: 0.5rem;">
+        <div class="level"><span><i class="fas fa-lock"></i> сопротивление (бычий триггер)</span> <span style="font-weight: 700;">109.80 / 110.50</span></div>
+        <div class="level"><span><i class="fas fa-chart-simple"></i> зона консолидации</span> <span>108.80 – 109.40</span></div>
+        <div class="level"><span><i class="fas fa-arrow-down"></i> первая поддержка</span> <span>108.00</span></div>
+        <div class="level"><span><i class="fas fa-target"></i> <strong>главная цель шорта</strong></span> <span style="color:#c0392b;">107.50 – 107.00</span></div>
+        <div class="level"><span><i class="fas fa-stop"></i> рекомендуемый стоп (шорт)</span> <span>110.50 (выше зоны)</span></div>
+      </div>
+      <div style="margin-top: 1rem; background: #f0f5fa; border-radius: 1rem; padding: 0.8rem 1rem;">
+        <i class="fas fa-check-circle" style="color:#2e7d64;"></i> прогноз актуален ПОКА цена ниже 109.80
+      </div>
+    </div>
+  </div>
+
+  <!-- новости: Иран / США 2 мая 2026 -->
+  <div class="card" style="margin-bottom: 1rem;">
+    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 1.2rem;">
+      <i class="fas fa-newspaper" style="font-size: 1.6rem;"></i>
+      <h3>сводка новостей · Иран / США (1–2 мая)</h3>
+      <span class="badge" style="background: #7f8c8d;"><i class="fas fa-clock"></i> влияние на Brent</span>
+    </div>
+
+    <div class="news-item">
+      <i class="fas fa-microphone-alt" style="width: 24px; color:#c0392b;"></i> <strong>Трамп (1 мая, Флорида):</strong> «Возможно, нам вообще лучше не заключать сделку с Ираном. Блокада невероятна, их экономика рушится».
+      <div style="font-size: 0.8rem; margin-top: 6px; background:#f2f6f9; display: inline-block; padding: 2px 10px; border-radius: 30px;">▪ поддержка военной премии $110+</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-ship"></i> <strong>Иран отверг предварительные условия США:</strong> Тегеран предложил «сначала открыть пролив, потом переговоры по ядру». Трамп ответил отказом, блокада Ормуза сохраняется.
+      <div style="font-size: 0.75rem; margin-top: 5px;">⇢ прямой дефицит нефти / риск необратимого падения добычи Ирана</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-exclamation-triangle" style="color:#e67e22;"></i> <strong>Иранский военный представитель, 2 мая:</strong> «Возобновление конфликта между Ираном и США вероятно».
+      <div style="font-size: 0.75rem;">⚠️ любой инцидент в Ормузе → Brent к $126+</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-chart-line"></i> <strong>Фундаментал:</strong> Хранилища Ирана переполняются, добыча уже сокращается. Эксперты: длительная блокада ведёт к необратимому повреждению скважин (потеря до 500 тыс б/с).
+      <div style="font-size: 0.75rem; color:#1a5d7a;">долгосрочный бычий фактор даже после возможного перемирия</div>
+    </div>
+  </div>
+
+  <!-- блок рисков и тактики -->
+  <div class="card" style="background: #0f1e29; color: #f0f6fe;">
+    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+      <div><i class="fas fa-triangle-exclamation"></i> <strong>тактика на ближайшие часы</strong></div>
+      <div><span class="badge" style="background:#325b74;"><i class="fab fa-twitter"></i> тревога: следить за заголовками «Трамп / CENTCOM»</span></div>
+    </div>
+    <ul style="margin-top: 1rem; margin-left: 1.2rem; line-height: 1.5;">
+      <li>✔️ если без новостей — удерживаем шорт, цель 107.50–108 (фиксация части профита на 108.00).</li>
+      <li>⚠️ при касании 110.50 или закреплении выше 110.00 — пересмотр, стоп активирован.</li>
+      <li>🔥 <span style="color:#f9a26c;">эскалация (авиаудары, блокировка танкеров)</span> → немедленно закрыть шорт, открывать лонг с целью 115-126$.</li>
+    </ul>
+    <div style="margin-top: 1rem; font-size: 0.75rem; border-top: 1px solid #2a4b62; padding-top: 0.8rem;">
+      <i class="fas fa-chart-simple"></i> данные на 2 мая 2026 / 15:00 UTC +3. анализ: техническая коррекция в рамках сильного нисходящего импульса.
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-database"></i> OilFlow — ситуационный центр нефтяных фьючерсов. Не является инвестиционной рекомендацией. Управляйте рисками.
+  </div>
+
+</div>
+</body>
+</html>
