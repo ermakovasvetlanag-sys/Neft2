@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>OilFlow / Brent Live — аналитика нефти 2026</title>
+  <!-- Font Awesome 6 (безопасный CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf3 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1.5rem;
+      color: #0a1c2a;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      padding: 1.8rem 2rem;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #11212e;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+
+    .price-large {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0b2b3b;
+    }
+
+    .change-negative {
+      color: #d32f2f;
+      background: #ffe9e9;
+      padding: 0.2rem 0.9rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    .signal-box {
+      background: #0f212f;
+      color: white;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.6rem;
+    }
+
+    .signal-box i {
+      color: #4caf50;
+      font-size: 1.8rem;
+    }
+
+    .level {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+      padding: 0.6rem 0;
+    }
+
+    .risk-tag {
+      background: #cf2e2e20;
+      border-left: 5px solid #cf2e2e;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+
+    .news-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #3f5e7c;
+      margin-top: 2rem;
+      border-top: 1px solid #cad4de;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      .price-large {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- Header with logo and date -->
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <i class="fas fa-oil-can" style="font-size: 2rem; color: #1f6392;"></i>
+      <span style="font-weight: 800; font-size: 1.6rem; letter-spacing: -0.5px;">OilFlow</span>
+      <span class="badge"><i class="fas fa-chart-line"></i> Brent Live</span>
+    </div>
+    <div style="display: flex; gap: 1rem; margin-top: 8px;">
+      <span><i class="far fa-calendar-alt"></i> 3 мая 2026</span>
+      <span><i class="fas fa-globe-americas"></i> geopolitics / energy</span>
+    </div>
+  </div>
+
+  <!-- Price card -->
+  <div class="card" style="margin-bottom: 1.2rem;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+          <span style="font-weight: 600; font-size: 1rem;">BRENT (futures) / USD</span>
+          <span class="change-negative"><i class="fas fa-arrow-down"></i> 1.24%</span>
+        </div>
+        <div class="price-large">108.95 <span style="font-size: 1.2rem; font-weight: 500;">USD</span></div>
+        <div style="margin-top: 6px; color: #2c5a74;"><i class="fas fa-waveform"></i> 3-15 min timeframe | consolidation 108.70–109.30</div>
+      </div>
+      <div style="background: #eef2f7; padding: 0.4rem 1.3rem; border-radius: 60px;">
+        <i class="fas fa-chart-simple"></i> stop level: 110.50
+      </div>
+    </div>
+  </div>
+
+  <!-- Forecast grid -->
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;"><i class="fas fa-bullseye" style="color:#d9534f;"></i> Trading scenario</h3>
+      <div class="signal-box" style="background: #102b37; margin-bottom: 1.2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span><i class="fas fa-arrow-down-long"></i> <strong>SHORT (correction)</strong></span>
+          <span style="background: #d9534f; padding: 2px 12px; border-radius: 30px; font-size: 0.8rem;">priority</span>
+        </div>
+        <p style="margin-top: 12px; opacity: 0.9;">Price remains below 109.80 → move to <strong>107.50 – 108.00</strong></p>
+        <div style="margin-top: 10px; font-size: 0.85rem;"><i class="far fa-clock"></i> horizon: 1–4 hours</div>
+      </div>
+      <div class="risk-tag">
+        <i class="fas fa-skull-crosswalk"></i> <strong>main threat for short:</strong> news of strikes on Iran ("strike / attack").<br>
+        <span style="font-size: 0.85rem;">if above 110.50 → scenario cancelled → long to $115+</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;"><i class="fas fa-chart-line"></i> key levels <span style="font-weight: normal; font-size: 0.8rem;">(5-15 min)</span></h3>
+      <div style="margin-top: 0.5rem;">
+        <div class="level"><span><i class="fas fa-lock"></i> resistance (bullish trigger)</span> <span style="font-weight: 700;">109.80 / 110.50</span></div>
+        <div class="level"><span><i class="fas fa-chart-simple"></i> consolidation zone</span> <span>108.70 – 109.30</span></div>
+        <div class="level"><span><i class="fas fa-arrow-down"></i> first support</span> <span>108.00</span></div>
+        <div class="level"><span><i class="fas fa-target"></i> <strong>main short target</strong></span> <span style="color:#c0392b;">107.50 – 107.00</span></div>
+        <div class="level"><span><i class="fas fa-stop"></i> recommended stop (short)</span> <span>110.50</span></div>
+      </div>
+      <div style="margin-top: 1rem; background: #f0f5fa; border-radius: 1rem; padding: 0.8rem 1rem;">
+        <i class="fas fa-check-circle" style="color:#2e7d64;"></i> forecast valid WHILE price below 109.80
+      </div>
+    </div>
+  </div>
+
+  <!-- News section -->
+  <div class="card" style="margin-bottom: 1rem;">
+    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 1.2rem;">
+      <i class="fas fa-newspaper" style="font-size: 1.6rem;"></i>
+      <h3>news · Iran / USA (May 1–3)</h3>
+      <span class="badge" style="background: #7f8c8d;"><i class="fas fa-clock"></i> impact on Brent</span>
+    </div>
+
+    <div class="news-item">
+      <i class="fas fa-microphone-alt" style="width: 24px; color:#c0392b;"></i> <strong>Trump (May 1, Florida):</strong> "Maybe we are better off not making a deal with Iran. The blockade is incredible, their economy is crashing."
+      <div style="font-size: 0.8rem; margin-top: 6px; background:#f2f6f9; display: inline-block; padding: 2px 10px; border-radius: 30px;">▪ supports war premium $110+</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-ship"></i> <strong>Iran rejected US preconditions:</strong> Tehran proposed "open the Strait first, then nuclear talks". Trump refused, Hormuz blockade continues.
+      <div style="font-size: 0.75rem; margin-top: 5px;">⇢ direct oil deficit / risk of irreversible damage to Iranian wells</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-exclamation-triangle" style="color:#e67e22;"></i> <strong>Iranian military spokesman, May 2:</strong> "Resumption of conflict between Iran and US is likely."
+      <div style="font-size: 0.75rem;">⚠️ any incident in Hormuz → Brent to $126+</div>
+    </div>
+    <div class="news-item">
+      <i class="fas fa-chart-line"></i> <strong>Fundamental:</strong> Iranian storage filling up, production already decreasing. Experts: prolonged blockade leads to irreversible well damage (loss of up to 500k b/d).
+      <div style="font-size: 0.75rem; color:#1a5d7a;">long-term bullish factor even after possible truce</div>
+    </div>
+  </div>
+
+  <!-- Risk management -->
+  <div class="card" style="background: #0f1e29; color: #f0f6fe;">
+    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: space-between;">
+      <div><i class="fas fa-triangle-exclamation"></i> <strong>tactics for next hours</strong></div>
+      <div><span class="badge" style="background:#325b74;"><i class="fab fa-twitter"></i> alert: watch headlines "Trump / CENTCOM"</span></div>
+    </div>
+    <ul style="margin-top: 1rem; margin-left: 1.2rem; line-height: 1.5;">
+      <li>✔️ if no news — hold short, target 107.50–108 (partial take profit at 108.00).</li>
+      <li>⚠️ if 110.50 is touched or price closes above 110.00 — review, stop activated.</li>
+      <li>🔥 <span style="color:#f9a26c;">escalation (airstrikes, tanker blockade)</span> → close short immediately, go long targeting $115-126.</li>
+    </ul>
+    <div style="margin-top: 1rem; font-size: 0.75rem; border-top: 1px solid #2a4b62; padding-top: 0.8rem;">
+      <i class="fas fa-chart-simple"></i> data as of May 3, 2026 / 12:00 UTC. analysis: technical correction within stronger downtrend.
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-database"></i> OilFlow — crude oil futures intelligence center. Not investment advice. Manage your risk.
+  </div>
+
+</div>
+</body>
+</html>
